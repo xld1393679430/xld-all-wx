@@ -1,0 +1,54 @@
+<!--index/index1.wxml-->
+<!--<view wx:if="{{mode==='preview'}}" class="preview-box">-->
+    <!--<view class="index-box">{{currentIndex+1}}/{{imageList.length}}</view>-->
+    <!--<image src="{{tempImgPath}}" bindtap="previewImage" class="stu-img" mode="aspectFit"/>-->
+    <!--<view class="prev-image" bindtap="toPrevImage" wx:if="{{currentIndex>0}}"></view>-->
+    <!--<view class="next-image" bindtap="toNextImage" wx:if="{{currentIndex<imageList.length-1}}"></view>-->
+<!--</view>-->
+<view class="canvas-box">
+    <cover-view class="index-box" wx:if="{{mode==='preview'}}">{{currentIndex+1}}/{{imageList.length}}</cover-view>
+    <cover-image src="https://xweb-prd.oss-cn-hangzhou.aliyuncs.com/wx-happy-reading/prev-task-img.png" class="prev-image" bindtap="toPrevImage" wx:if="{{mode==='preview'&&currentIndex>0}}"></cover-image>
+    <cover-image src="https://xweb-prd.oss-cn-hangzhou.aliyuncs.com/wx-happy-reading/next-task-img.png" class="next-image" bindtap="toNextImage" wx:if="{{mode==='preview'&&currentIndex<imageList.length-1}}"></cover-image>
+    <!--<image wx:if="{{(editMode==='previewTemp'||editMode=='text')&&tempImgPath}}" class="preview-image" style="height: {{canvasHeight}}px; width: {{canvasWidth}}px" src="{{currentTempFilePath}}" bindtap="previewTempImage"/>-->
+    <textarea class="hidden-input" value="{{textValue}}" bindinput="inputChange" focus="{{inputFocus}}" />
+    <canvas
+            canvas-id="canvasIn"
+            style="width: {{canvasWidth}}px; height: {{canvasHeight}}px; top: 0; left: 15px"
+            disable-scroll
+            bindtouchstart="drawStart"
+            bindtouchmove="drawMove"
+            bindtouchend="drawEnd"
+            bindtap="drawTap"
+            class="canvas" >
+    </canvas>
+    <movable-area wx:if="{{editMode==='text'}}" class="preview-image movable-area" style="height: {{canvasImageHeight}}px; width: {{canvasImageWidth}}px">
+        <movable-view direction="all"
+                      x="{{textPx}}"
+                      y="{{textPy}}"
+                      class="textShow"
+                    hidden="{{editMode!=='text'}}"
+                    style="color:{{drawColor}};font-size:14px;width: {{textValue==''?126:textValueMaxLength*14}}px"
+                    bindchange="textMove"
+        >
+            <text bindtap="clickTextShow">{{textValue == '' ? '请输入文字批注内容' : textValue}}</text>
+        </movable-view>
+    </movable-area>
+</view>
+
+<view class="color-list" wx:if="{{showColorPanel}}">
+    <view class="color-item" bindtap="changeColor" data-color="{{item}}" wx:for="{{colorList}}" wx:key="{{item}}" style="background-color: {{item}}; border: {{drawColor===item?'2px solid #1BC9B7': '2px solid #DCDCDC' }}; box-shadow:{{drawColor===item?'0 0 5px 0 #1BC9B7':''}};"></view>
+</view>
+
+<view class="operator-box flexbox space-between flex-center" wx:if="{{!lowVersion}}">
+    <view>
+        <view class="operator-item draw-op-{{editMode==='draw'?'green':'grey'}}" bindtap="{{editMode==='draw'?'previewTemp':'toDrawMode'}}"></view>
+        <view class="operator-item rectangle-op-{{editMode==='rectangle'?'green':'grey'}}" bindtap="{{editMode==='rectangle'?'previewTemp':'toRectangleMode'}}"></view>
+        <view class="operator-item text-op-{{editMode==='text'?'green':'grey'}}" bindtap="{{editMode==='text'?'previewTemp':'toAddText'}}"></view>
+        <view class="operator-item undo-op-grey" bindtap="undo"></view>
+    </view>
+    <view class="complete-btn" bindtap="completeEdit" wx:if="{{mode==='edit'}}">保存</view>
+</view>
+
+<cover-view class="text-cancel" bindtap="textCancel" hidden="{{editMode!=='text'}}">取消</cover-view>
+<cover-view class="text-done" bindtap="textDone" hidden="{{editMode!=='text'}}">完成</cover-view>
+

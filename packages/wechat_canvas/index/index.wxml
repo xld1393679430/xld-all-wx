@@ -1,0 +1,19 @@
+<view>
+  <canvas canvas-id="myCanvas"
+  id="myCanvas"
+  class=""
+  style="width:{{canvasWidth}}px;height:{{canvasHight}}px;backgroud-color:green"
+  bindtouchstart="bindtouchstart1"
+  bindtouchmove='bindtouchmove1' bindtouchend='bindtouchend1'>
+  </canvas>
+
+  <button class='btn' bindtap='zoomBigger'>zoomBigger</button>
+  <button class='btn' bindtap='zoomSmall'>zoomSmall</button>
+  <button class='btn' bindtap='up'>up</button>
+  <button class='btn' bindtap='down'>down</button>
+    <button class='btn' bindtap='left'>left</button>
+  <button class='btn' bindtap='right'>right</button>
+
+    <button class='btn' bindtap='toDemo'>toDemo</button>
+
+</view>

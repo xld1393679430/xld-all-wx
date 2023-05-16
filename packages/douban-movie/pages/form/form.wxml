@@ -1,0 +1,52 @@
+<view>
+<form catchsubmit="fromSubmit" catchreset="fromReset">
+
+<view style="margin-top:20px">
+<text>switch</text>
+<switch name="switch" type="switch" checked="{{false}}" 
+color="red"  bindchange='onSwitchTap'/>
+</view>
+
+
+<view style="margin-top:20px">
+<text>slider</text>
+<slider value="20" name="slider" show-value='true' 
+bindchange='onSlideTap'></slider>
+</view>
+
+<view style="margin-top:20px">
+<text>radio</text>
+<radio-group name="radio-group" bindchange="onRadioTap">
+  <label>
+    <radio value='1'>1</radio>
+  </label>
+   <label>
+    <radio value='2'>2</radio>
+  </label>
+   <label>
+    <radio value='3'>3</radio>
+  </label>
+</radio-group>
+</view>
+
+<view style="margin-top:20px">
+  <text>checkBox</text>
+  <checkbox-group name="checkbox" bindchange="onCheckBoxTap">
+    <label>
+      <checkbox value='check1'>check1</checkbox>
+    </label>
+    <label>
+      <checkbox value='check2'>check2</checkbox>
+    </label>
+    <label>
+      <checkbox value='check3'>check3</checkbox>
+    </label>
+  </checkbox-group>
+</view>
+
+  <view style="margin-top:20px">
+    <button form-type='submit'>提交</button>
+    <button form-type='reset'>重置</button>
+  </view>
+</form>
+</view>
